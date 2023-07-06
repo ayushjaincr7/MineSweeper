@@ -1,19 +1,21 @@
 from tkinter import *
 from tkinter import ttk
+import settings
+import utils
 
 
 root = Tk()
 # override the settings of the window
 root.config(bg="black")
-root.geometry('1440x720')
+root.geometry(f'{settings.WIDTH}x{settings.HEIGHT}')
 root.title('MineSweeper')
 root.resizable(False,False)
 
 top_frame = Frame(
     root,
     bg="red", #change later to black
-    width=1440,
-    height=180
+    width=settings.WIDTH,
+    height=utils.height_prct(25)
 )
 top_frame.place(x=0,y=0)
 
@@ -21,10 +23,13 @@ top_frame.place(x=0,y=0)
 left_frame = Frame(
     root,
     bg="blue",
-    width=360,
-    height=540,
+    width=utils.width_prct(25),
+    height=utils.height_prct(75),
 )
 left_frame.place(x=0,y=180)
+
+
+
 
 # run the windows
 root.mainloop()
