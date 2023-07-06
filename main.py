@@ -17,6 +17,15 @@ top_frame = Frame(
 )
 top_frame.place(x=0,y=0)
 
+
+left_frame = Frame(
+    root,
+    bg="blue",
+    width=360,
+    height=540,
+)
+left_frame.place(x=0,y=180)
+
 # run the windows
 root.mainloop()
 
