@@ -1,6 +1,8 @@
 from tkinter import Button, Label
 import random
 import settings
+from tkinter import messagebox
+import sys
 
 
 class Cell:
@@ -10,6 +12,7 @@ class Cell:
     def __init__(self,x, y, is_mine=False):
         self.is_mine = is_mine
         self.is_opened = False
+        self.is_mine_candidate=False
         self.cell_btn_object = None
         self.x = x
         self.y = y
@@ -24,7 +27,7 @@ class Cell:
             height=4,
         )
         btn.bind('<Button-1>', self.left_click_actions ) # Left Click
-        btn.bind('<Button-3>', self.right_click_actions ) # Right Click
+        btn.bind('<Button-2>', self.right_click_actions ) # Right Click
         self.cell_btn_object = btn
 
     @staticmethod
@@ -92,12 +95,24 @@ class Cell:
 
     def show_mine(self):
         # A logic to interrupt the game and display a message that player lost!
-        self.cell_btn_object.configure(bg='red')
+        self.cell_btn_object.configure(highlightbackground='red')
+        messagebox.showinfo("Game Over", "You clicked on a mine",)
+        sys.exit()
+        
+        
 
 
     def right_click_actions(self, event):
-        print(event)
-        print("I am right clicked!")
+        if not self.is_mine_candidate:
+            self.cell_btn_object.configure(
+                highlightbackground='blue'
+            )
+            self.is_mine_candidate = True
+        else:
+            self.cell_btn_object.configure(
+                highlightbackground="SystemButtonFace"
+            )
+            self.is_mine_candidate=False
 
     @staticmethod
     def randomize_mines():
