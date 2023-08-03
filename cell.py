@@ -49,6 +49,13 @@ class Cell:
                 for cell_obj in self.surrounded_cells:
                     cell_obj.show_cell()
             self.show_cell()
+            if Cell.cell_count == settings.MINES_COUNT:
+                 messagebox.showinfo("Game Over", "Congratulations!")
+
+        # Cancel Left and Right click events if cell is already opened
+        self.cell_btn_object.unbind('<Button-1>')
+        self.cell_btn_object.unbind('<Button-2>')
+
 
     def get_cell_by_axis(self, x,y):
         # Return a cell object based on the value of x,y
@@ -90,13 +97,16 @@ class Cell:
                 Cell.cell_count_label_object.configure(
                     text=f"Cells Left:{Cell.cell_count}"
                 )
+            # if this was a mine candidate, then for safety
+            self.cell_btn_object.config(
+                highlightbackground="SystemButtonFace"
+            )
         # Mark the cell as opened (Use is as the last line of this method)
         self.is_opened = True
 
     def show_mine(self):
-        # A logic to interrupt the game and display a message that player lost!
         self.cell_btn_object.configure(highlightbackground='red')
-        messagebox.showinfo("Game Over", "You clicked on a mine",)
+        messagebox.showinfo("Game Over", "You clicked on a mine")
         sys.exit()
         
         
